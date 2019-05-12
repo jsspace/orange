@@ -2,3 +2,25 @@
 .section {
   margin: 40rpx 0;
 }
+
+.time-picker {
+  text-align: right;
+}
+
+.time-item {
+  width: 120rpx;
+  flex: 0 1 auto;
+}
+
+.btn-wrapper {
+  margin-top: 30px;
+  padding: 0 15px;
+}
+.create-btn {
+  padding: 0 30px;
+  background: #f09135;
+  color: #fff;
+  font-size: 20px;
+  outline: none;
+  border: none;
+}

@@ -66,5 +66,10 @@ Page({
     wx.navigateTo({
       url: '/pages/create/create',
     })
+  },
+  gotoDetail: function () {
+    wx.navigateTo({
+      url: '/pages/detail/detail',
+    })
   }
 })

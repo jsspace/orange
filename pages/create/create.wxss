@@ -1,1 +1,4 @@
 /* pages/create/create.wxss */
+.section {
+  margin: 40rpx 0;
+}

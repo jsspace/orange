@@ -1,11 +1,13 @@
 {
   "pages": [
+    "pages/create/create",
     "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffa500",
     "navigationBarTitleText": "橙子报名",
-    "navigationBarTextStyle": "#fff"
-  }
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json"
 }

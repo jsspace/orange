@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/create/create",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/shared/shared",
+    "pages/create/create"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

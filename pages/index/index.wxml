@@ -1,2 +1,37 @@
 <!--pages/index/index.wxml-->
-<text>pages/index/index.wxml</text>
+<view class="page">
+  <view class="activity-list">
+    <view class="activity-card">
+      <view class="activity-title">5月3号的草莓</view>
+      <view class="activity-time">
+        <view>2019-09-20</view>
+        <view></view>
+      </view>
+      <view class="activity-content">
+        防守反击都是垃圾金粉世家阿防守反击都是垃圾金粉世家阿里福建省冷风了撒家乐福防守反击都是垃圾金粉世家阿里福建省冷风了撒家乐福里福建省冷风了撒家乐福
+      </view>
+
+      <view class="bottom-bar">
+        <view class="">报名30人</view>
+        <view class="share-btn"></view>
+      </view>
+    </view>
+    <view class="activity-card">
+      <view class="activity-title">5月3号的草莓</view>
+      <view class="activity-time">
+        <view>2019-09-20</view>
+        <view></view>
+      </view>
+      <view class="activity-content">
+        防守反击都是垃圾金粉世家阿防守反击都是垃圾金粉世家阿里福建省冷风了撒家乐福防守反击都是垃圾金粉世家阿里福建省冷风了撒家乐福里福建省冷风了撒家乐福
+      </view>
+
+      <view class="bottom-bar">
+        <view class="">报名30人</view>
+        <view class="share-btn"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="create-btn" bindtap="gotoCreate">创建一个活动</view>
+</view>

@@ -29,16 +29,18 @@
           <view class="weui-label">活动开始时间</view>
         </view>
         <view class="weui-cell__bd">
-          <view class="weui-cell__bd">
-            <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-              <view class="weui-input">{{date}}</view>
+          <view class="weui-cell__bd time-picker">
+            <picker mode="date" value="{{startDate}}" bindchange="bindDateChange" data-type="startDate">
+              <view class="weui-input">{{startDate}}</view>
             </picker>
           </view>
         </view>
-        <view class="weui-cell__bd">
-          <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
-            <view class="weui-input">{{time}}</view>
-          </picker>
+        <view class="weui-cell__bd time-item">
+          <view class="weui-cell__bd time-picker">
+            <picker mode="time" value="{{startTime}}" bindchange="bindDateChange" data-type="startTime">
+              <view class="weui-input">{{startTime}}</view>
+            </picker>
+          </view>
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
@@ -46,9 +48,45 @@
           <view class="weui-label">活动截止时间</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="请输入qq" />
+          <view class="weui-cell__bd time-picker">
+            <picker mode="date" value="{{endDate}}" bindchange="bindDateChange" data-type="endDate">
+              <view class="weui-input">{{endDate}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell__bd time-item">
+          <view class="weui-cell__bd time-picker">
+            <picker mode="time" value="{{endTime}}" bindchange="bindDateChange" data-type="endTime">
+              <view class="weui-input">{{endTime}}</view>
+            </picker>
+          </view>
         </view>
       </view>
     </view>
   </view>
+
+  <view class="section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">活动地点</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="活动地点" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+        <view class="weui-cell__hd">
+          <view class="weui-label">单位属性</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="例如（人、只、个）" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="btn-wrapper">
+    <button class="create-btn">创建活动</button>
+  </view>
+  
 </view>

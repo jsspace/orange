@@ -1,11 +1,15 @@
 // pages/create/create.js
+var utils = require('../../utils/time.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    date: '',
+    startDate: utils.formatTime(+ new Date(), '-'),
+    startTime: '00:00',
+    endDate: utils.formatTime(+ new Date(), '-'),
+    endTime: '23:59',
   },
 
   /**
@@ -67,8 +71,10 @@ Page({
    * 时间改变
    */
   bindDateChange: function (e) {
+    const type = e.target.dataset.type
+
     this.setData({
-      date: e.detail.value,
+      [type]: e.detail.value,
     })
-  }
+  },
 })

@@ -18,4 +18,13 @@
 }
 .icon {
   padding-right: 5px;
+  vertical-align: middle;
+  width: 15px;
+  height: 15px;
+}
+.user-image {
+  margin-right: 5px;
+  vertical-align: middle;
+  width:20px;
+  height: 20px;
 }

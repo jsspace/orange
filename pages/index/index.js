@@ -4,14 +4,40 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    hasAuth: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    var that = this;
+    wx.getSetting({
+      success(res) {
+        if (res.authSetting["scope.userInfo"]) {
+          that.setData({
+            hasAuth: true,
+          });
+          wx.getUserInfo({
+            success(res) {
+              console.log(res);
+              const userInfo = res.userInfo
+              const nickName = userInfo.nickName
+              const avatarUrl = userInfo.avatarUrl
+              const gender = userInfo.gender // 性别 0：未知、1：男、2：女
+              const province = userInfo.province
+              const city = userInfo.city
+              const country = userInfo.country
+            }
+          })
+        }
+        console.log(res)
+        // res.authSetting = {
+        //   "scope.userInfo": true,
+        //   "scope.userLocation": true
+        // }
+      }
+    })
   },
 
   /**
@@ -71,5 +97,8 @@ Page({
     wx.navigateTo({
       url: '/pages/detail/detail',
     })
+  },
+  handleGetUserInfo: function (e) {
+    console.log(e);
   }
 })

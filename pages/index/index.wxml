@@ -33,5 +33,6 @@
     </view>
   </view>
 
-  <view class="create-btn" bindtap="gotoCreate">创建一个活动</view>
+  <view wx:if="{{hasAuth}}" class="create-btn" bindtap="gotoCreate">创建一个活动</view>
+  <button wx:else open-type="getUserInfo" class="create-btn" bindgetuserinfo="handleGetUserInfo">创建一个活动</button>
 </view>

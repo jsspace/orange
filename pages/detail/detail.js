@@ -1,4 +1,5 @@
 // pages/detail/detail.js
+var base64 = require("../images/base64");
 Page({
 
   /**
@@ -12,7 +13,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      timeIcon: base64.timeIcon,
+      locationIcon: base64.locationIcon,
+      userIcon: base64.userIcon
+    })
   },
 
   /**
@@ -40,7 +45,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+  
   },
 
   /**

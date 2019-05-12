@@ -1,2 +1,57 @@
 <!--pages/detail/detail.wxml-->
-<text>pages/detail/detail.wxml</text>
+<view>
+  <view class="activity-card">
+    <view class="weui-article__h2 activity-title">上海之巅观光</view>
+    <view>
+      <view class="activity-info">
+        <view class='icon'>@</view>
+        <view>2019-05-12 18:00 ~ 2019-05-12 23:59</view>
+      </view>
+      <view class="activity-info">
+        <view class='icon'>@</view>
+        <view>上海市-浦东新区-银城中路501号</view>
+      </view>
+    </view>
+    <view class="weui-article__p">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+    </view>
+  </view>
+  <view>
+    <view class="weui-cell">
+      <view class="weui-cell__bd">活动发起人</view>
+      <view class="weui-cell__hd">
+        <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+      </view>
+      <view class="weui-cell__ft">东方月初</view>
+    </view>
+  </view>
+  <view>
+    <view class="weui-cells__title">报名列表</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">易大师</view>
+        <view class="weui-cell__ft">2</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">看雪</view>
+        <view class="weui-cell__ft">3</view>
+      </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">总计</view>
+        <view class="weui-cell__ft">5</view>
+      </view>
+    </view>
+  </view>
+</view>

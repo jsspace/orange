@@ -2,8 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/shared/shared",
-    "pages/create/create"
-    
+    "pages/create/create",
+    "pages/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

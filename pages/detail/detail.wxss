@@ -1,1 +1,21 @@
 /* pages/detail/detail.wxss */
+.activity-card {
+  margin: 10px 10px 5px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #f0987b;
+  padding: 20px 20px 5px;
+  color: #fff;
+  position: relative;
+  background: #f0987b;
+}
+.activity-info {
+  font-size: 12px;
+  display:flex;
+  justify-content:flex-start;
+  height:20px;
+  align-items:left;
+}
+.icon {
+  padding-right: 5px;
+}

@@ -1,34 +1,20 @@
 <!--pages/index/index.wxml-->
 <view class="page">
-  <view class="activity-list">
-    <view class="activity-card" bindtap="gotoDetail">
-      <view class="activity-title">5月3号的草莓</view>
+  <view wx:if="{{activityList.length === 0}}" class="no-result">还没有一个活动</view>
+  <view wx:else class="activity-list">
+    <view class="activity-card" wx:for="{{activityList}}" wx:key="{{index}}" bindtap="gotoDetail">
+      <view class="activity-title">{{item.title}}</view>
       <view class="activity-time">
-        <view>2019-09-20</view>
+        <view>{{item.startTime}}</view>
         <view></view>
       </view>
       <view class="activity-content">
-        防守反击都是垃圾金粉世家阿防守反击都是垃圾金粉世家阿里福建省冷风了撒家乐福防守反击都是垃圾金粉世家阿里福建省冷风了撒家乐福里福建省冷风了撒家乐福
+        {{item.description}}
       </view>
 
       <view class="bottom-bar">
-        <view class="">报名30人</view>
-        <view class="share-btn"></view>
-      </view>
-    </view>
-    <view class="activity-card">
-      <view class="activity-title">5月3号的草莓</view>
-      <view class="activity-time">
-        <view>2019-09-20</view>
-        <view></view>
-      </view>
-      <view class="activity-content">
-        防守反击都是垃圾金粉世家阿防守反击都是垃圾金粉世家阿里福建省冷风了撒家乐福防守反击都是垃圾金粉世家阿里福建省冷风了撒家乐福里福建省冷风了撒家乐福
-      </view>
-
-      <view class="bottom-bar">
-        <view class="">报名30人</view>
-        <view class="share-btn"></view>
+        <view class="">报名{{item.quantity}}{{item.unit || '人'}}</view>
+        <button class="share-btn" open-type="share" data-id="{{item.id}}" data-id="{{item.title}}"></button>
       </view>
     </view>
   </view>

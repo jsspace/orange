@@ -14,7 +14,7 @@
 
       <view class="bottom-bar">
         <view class="">报名{{item.quantity}}{{item.unit || '人'}}</view>
-        <button class="share-btn" open-type="share" data-id="{{item.id}}" data-id="{{item.title}}"></button>
+        <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
       </view>
     </view>
   </view>

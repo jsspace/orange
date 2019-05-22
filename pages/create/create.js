@@ -118,6 +118,7 @@ Page({
         console.log(err);
         return;
       }
+      console.log(res)
       wx.redirectTo({
         url: '/pages/detail/detail?id=' + res.data.id,
       })

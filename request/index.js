@@ -1,4 +1,4 @@
-const HOST = 'https://webfem.com';
+const HOST = 'https://orange.webfem.com';
 
 // 用code换token
 const getTokenWithCode = function (code, cb) {
@@ -50,8 +50,44 @@ const createActivity = function (token, data, callback) {
   })
 }
 
+// 查询用户
+const getUserInfo = function (token, callback) {
+  wx.request({
+    url: `${HOST}/orange/user`,
+    header: {
+      token,
+    },
+    success: function (res) {
+      callback(null, res.data)
+    },
+    fail: function (e) {
+      callback(e);
+    }
+  })
+}
+
+// 更新用户
+const updateUserInfo = function (token, data, callback) {
+  wx.request({
+    url: `${HOST}/orange/user/`,
+    header: {
+      token,
+    },
+    method: 'POST',
+    data,
+    success: function (res) {
+      callback(null, res.data);
+    },
+    fail: function (e) {
+      callback(e);
+    }
+  })
+}
+
 module.exports = {
   getTokenWithCode,
   getActivityList,
   createActivity,
+  getUserInfo,
+  updateUserInfo,
 }

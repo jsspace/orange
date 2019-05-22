@@ -1,5 +1,6 @@
 // pages/create/create.js
 var utils = require('../../utils/time.js');
+const request = require('../../request/index.js');
 Page({
 
   /**
@@ -10,6 +11,10 @@ Page({
     startTime: '00:00',
     endDate: utils.formatTime(+ new Date(), '-'),
     endTime: '23:59',
+    title: '',
+    position: '',
+    description:'',
+    unit:'',
   },
 
   /**
@@ -77,4 +82,45 @@ Page({
       [type]: e.detail.value,
     })
   },
+  /**
+   * 表单数据
+   */
+  handleFormChange: function (e) {
+    const field = e.target.dataset.key;
+    this.setData({
+      [field]: e.detail.value,
+    })
+  },
+  /**
+   * 创建活动
+   */
+  handleCreate: function () {
+    if (!this.data.title) {
+      wx.showToast({
+        title: '活动标题必填',
+      })
+      return;
+    }
+    const startTime = [this.data.startDate, this.data.startTime + ':00'].join(' ')
+    const endTime = [this.data.endDate, this.data.endTime + ':00'].join(' ')
+    const data = {
+      title: this.data.title,
+      position: this.data.position,
+      description: this.data.description,
+      unit: this.data.unit,
+      startTime: +new Date(startTime),
+      endTime: +new Date(endTime)
+    }
+
+    const token = wx.getStorageSync('token');
+    request.createActivity(token, data, function (err, res) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      wx.redirectTo({
+        url: '/pages/detail/detail?id=' + res.data.id,
+      })
+    })
+  }
 })

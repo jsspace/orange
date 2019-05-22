@@ -6,10 +6,18 @@ exports.formatTime = function (time, style) {
   var hour = date.getHours();
   var minutes = date.getMinutes();
 
-  if (style === '-') {
-    return [year, month, day].map(toStr).join('-')
+  const style1 = [year, month, day].map(toStr).join('-');
+  const style2 = [hour, minutes].map(toStr).join(':');
+  const style3 = [style1, style2].join(' ');
+  switch(style) {
+    case '-': {
+      return style1;
+    }
+    case ':': {
+      return style2;
+    }
   }
-  return [hour, minutes].map(toStr).join(':')
+  return style3;
 }
 
 function toStr (n) {

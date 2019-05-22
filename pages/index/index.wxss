@@ -1,4 +1,7 @@
 /* pages/index/index.wxss */
+.activity-list {
+  padding-bottom: 70px;
+}
 .create-btn {
   position: fixed;
   bottom: 0;
@@ -13,12 +16,19 @@
   font-weight: bold;
 }
 
+.no-result {
+  font-size: 18px;
+  text-align: center;
+  color: #999;
+  margin-top: 30%;
+}
+
 .activity-card {
   margin: 10px 10px 15px;
   background: #fff;
   border-radius: 5px;
   box-shadow: 0 0 5px #f0987b;
-  padding: 20px 20px 5px;
+  padding: 20px 10px 5px 20px;
   color: #fff;
   position: relative;
   background: #f0987b; /* 标准的语法 */
@@ -59,6 +69,8 @@ button {
   border-radius: 0;
   border: none;
   outline: none;
+  display: block;
+  margin: 0;
 }
 
 button::after {

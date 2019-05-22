@@ -99,8 +99,6 @@ Page({
   },
   // 分享
   onShareAppMessage: function(e) {
-
-    console.log(e.target.dataset.id);
     if (!e.target) {
       return {
         title: '简单，方便的发起报名，就在橙子报名',

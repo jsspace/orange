@@ -1,20 +1,19 @@
 <!--pages/detail/detail.wxml-->
 <view>
   <view class="activity-card">
-    <view class="weui-article__h2 activity-title">上海之巅观光</view>
+    <view class="weui-article__h2 activity-title">{{activity.title}}</view>
     <view>
       <view class="activity-info">
         <image class='icon' src="{{timeIcon}}"></image>
-        <view>2019-05-12 18:00 ~ 2019-05-12 23:59</view>
+        <view>{{activity.startTime}} ~ {{activity.endTime}}</view>
       </view>
       <view class="activity-info">
         <image class='icon' src="{{locationIcon}}"></image>
-        <view>上海市-浦东新区-银城中路501号</view>
+        <view>{{activity.location}}</view>
       </view>
     </view>
     <view class="weui-article__p">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        {{activity.description}}
     </view>
   </view>
   <view>

@@ -84,10 +84,28 @@ const updateUserInfo = function (token, data, callback) {
   })
 }
 
+// 查询活动
+const getActivityDetail = function (token, id, callback) {
+  wx.request({
+    url: `${HOST}/orange/activity/${id}`,
+    header: {
+      token,
+    },
+    method: 'GET',
+    success: function (res) {
+      callback(null, res.data);
+    },
+    fail: function (e) {
+      callback(e);
+    }
+  })
+}
+
 module.exports = {
   getTokenWithCode,
   getActivityList,
   createActivity,
   getUserInfo,
   updateUserInfo,
+  getActivityDetail
 }

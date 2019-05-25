@@ -101,11 +101,30 @@ const getActivityDetail = function (token, id, callback) {
   })
 }
 
+// 报名
+const signUpActivity = function (token, data, callback) {
+  wx.request({
+    url: `${HOST}/orange/queue`,
+    header: {
+      token
+    },
+    method: 'POST',
+    data,
+    success: function (res) {
+      callback(null, res.data);
+    },
+    fail: function (e) {
+      callback(e);
+    }
+  })
+}
+
 module.exports = {
   getTokenWithCode,
   getActivityList,
   createActivity,
   getUserInfo,
   updateUserInfo,
-  getActivityDetail
+  getActivityDetail,
+  signUpActivity
 }

@@ -91,7 +91,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '/pages/detail/detail',
+      url: '/pages/detail/detail?id=' + e.currentTarget.dataset.id,
     })
   },
   handleGetUserInfo: function(e) {
@@ -112,7 +112,7 @@ Page({
     const activityTitle = e.target.dataset.title;
     return {
       title: '我在橙子报名发起了一个活动，快来参加吧',
-      path: 'pages/shared/shared?id=' + activityId,
+      path: 'pages/share/share?id=' + activityId,
       imageUrl: 'https://cdn.webfem.com/webfem/5abf6aa0-7c9b-11e9-b71c-8991f1dd05b3',
     }
   },

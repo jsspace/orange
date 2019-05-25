@@ -1,0 +1,43 @@
+/* pages/share/share.wxss */
+.activity-card {
+  margin: 10px 10px 5px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #f0987b;
+  padding: 20px 20px 5px;
+  color: #fff;
+  position: relative;
+  background: #f0987b;
+}
+.activity-info {
+  font-size: 12px;
+  display:flex;
+  justify-content:flex-start;
+  height:20px;
+  align-items:left;
+}
+.icon {
+  padding-right: 5px;
+  vertical-align: middle;
+  width: 15px;
+  height: 15px;
+}
+.user-image {
+  margin-right: 5px;
+  vertical-align: middle;
+  width:20px;
+  height: 20px;
+}
+.create-btn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+  background: #f09135;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+}

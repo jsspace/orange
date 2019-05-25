@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/shared/shared",
+    "pages/share/share",
     "pages/create/create",
     "pages/detail/detail"
   ],

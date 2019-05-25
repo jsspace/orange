@@ -2,7 +2,7 @@
 <view class="page">
   <view wx:if="{{activityList.length === 0}}" class="no-result">还没有一个活动</view>
   <view wx:else class="activity-list">
-    <view class="activity-card" wx:for="{{activityList}}" wx:key="{{index}}" bindtap="gotoDetail">
+    <view class="activity-card" wx:for="{{activityList}}" wx:key="{{index}}" data-id='{{item.id}}' bindtap="gotoDetail">
       <view class="activity-title">{{item.title}}</view>
       <view class="activity-time">
         <view>{{item.startTime}}</view>

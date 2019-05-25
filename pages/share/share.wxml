@@ -1,4 +1,4 @@
-<!--pages/detail/detail.wxml-->
+<!--pages/share/share.wxml-->
 <view>
   <view class="activity-card">
     <view class="weui-article__h2 activity-title">{{activity.title}}</view>
@@ -22,7 +22,7 @@
       <view class="weui-cell__hd">
         <image src="{{userIcon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
       </view>
-      <view class="weui-cell__ft">东方月初</view>
+      <view class="weui-cell__ft">{{activity.userId}}</view>
     </view>
   </view>
   <view>
@@ -45,8 +45,9 @@
           
         </view>
         <view class="weui-cell__bd">总计</view>
-        <view class="weui-cell__ft">{{quantity.quantity}}</view>
+        <view class="weui-cell__ft">{{activity.quantity}}</view>
       </view>
     </view>
   </view>
+  <view class="create-btn" bindtap="signUpActivity">我要报名</view>
 </view>

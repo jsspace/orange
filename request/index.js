@@ -119,6 +119,41 @@ const signUpActivity = function (token, data, callback) {
   })
 }
 
+// 修改活动
+const updateActivity = function (token, data, callback) {
+  wx.request({
+    url: `${HOST}/orange/activity`,
+    header: {
+      token,
+    },
+    data,
+    method: 'PUT',
+    success: function (res) {
+      callback(null, res.data);
+    },
+    fail: function (e) {
+      callback(e);
+    }
+  })
+}
+
+// 删除活动
+const deleteActivity = function (token, id, callback) {
+  wx.request({
+    url: `${HOST}/orange/activity/` + id,
+    method: 'DELETE',
+    header: {
+      token,
+    },
+    success: function (res) {
+      callback(null, res.data)
+    },
+    fail: function (e) {
+      callback(e)
+    }
+  })
+}
+
 module.exports = {
   getTokenWithCode,
   getActivityList,
@@ -126,5 +161,7 @@ module.exports = {
   getUserInfo,
   updateUserInfo,
   getActivityDetail,
-  signUpActivity
+  signUpActivity,
+  updateActivity,
+  deleteActivity,
 }

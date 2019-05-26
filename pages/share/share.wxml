@@ -49,5 +49,6 @@
       </view>
     </view>
   </view>
-  <view class="create-btn" bindtap="signUpActivity">我要报名</view>
+  <view wx:if="{{hasAuth}}" class="create-btn" bindtap="signUpActivity">我要报名</view>
+  <button wx:else open-type="getUserInfo" class="create-btn" bindgetuserinfo="handleGetUserInfo">我要报名</button>
 </view>

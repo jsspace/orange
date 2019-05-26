@@ -29,13 +29,37 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 1,
+			"list": [
+				{
+					"id": 0,
+					"name": "qun",
+					"pathName": "pages/share/share",
+					"query": "id=1034",
+					"scene": 1044,
+					"shareInfo": {
+						"groupName": "测试模拟群1",
+						"shareName": "G0ybWfHOPpRdXTIDWkmfttgZh3jATG-Q61eVrDiTlp0@cr4dev",
+						"shareKey": "4U3EGq-3ddK1eXsVt80uewVsF7KDdzpT1MuihtvhkZlo7vyw_hUhMlQj_eN14W_zlXK4qYYTTbfpC1PnoDYDDA~~"
+					}
+				},
+				{
+					"id": 1,
+					"name": "修改活动",
+					"pathName": "pages/create/create",
+					"query": "id=10034",
+					"scene": null
+				}
+			]
 		}
 	}
 }

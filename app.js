@@ -1,8 +1,11 @@
 App({
+  data: {
+    ticket: 'aaa'
+  },
   onLaunch: function () {
     console.log('app launch');
   },
-  onShow: function () {
+  onShow: function (e) {
     console.log('App Show')
   },
   onHide: function () {

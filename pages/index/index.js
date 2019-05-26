@@ -12,18 +12,19 @@ Page({
     hasAuth: false,
     activityList: [],
   },
-
   /**
-   * 生命周期函数--监听页面ß加载
+   * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log('load');
     this.afertLoad();
   },
 
   // afterLoad
   afertLoad: function () {
     var that = this;
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     loginUtil.login(function (err, token) {
       if (err) {
         console.log(err);
@@ -46,6 +47,9 @@ Page({
    */
   onShow: function() {
     console.log('show');
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     if (SHOE_TIMES > 1) {
       var token = wx.getStorageSync('token');
       this.getActivityList(token);
@@ -112,6 +116,9 @@ Page({
       title: '我在橙子报名发起了一个活动，快来参加吧',
       path: 'pages/share/share?id=' + activityId,
       imageUrl: 'https://cdn.webfem.com/webfem/5abf6aa0-7c9b-11e9-b71c-8991f1dd05b3',
+      success: function (e) {
+        console.log(e);
+      }
     }
   },
   // 获取所有列表

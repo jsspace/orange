@@ -2,6 +2,7 @@
 const request = require('../../request/index.js');
 const formatTime = require('../../utils/time.js');
 var base64 = require("../images/base64");
+
 Page({
 
   /**
@@ -21,6 +22,9 @@ Page({
       userIcon: base64.userIcon
     });
     this.getActivityDetail(options.id);
+    this.setData({
+      activityId: options.id,
+    });
   },
 
   /**
@@ -87,6 +91,40 @@ Page({
       that.setData({
         activity: res.data
       });
+    })
+  },
+  handleEdit: function () {
+    wx.navigateTo({
+      url: '/pages/create/create?id=' + this.data.activityId,
+    })
+  },
+  handleDelete: function () {
+    const that = this;
+    wx.showModal({
+      title: '提示',
+      content: '确认删除此活动？',
+      success(res) {
+        if (res.confirm) {
+          that.deleteActivity();
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  // 删除活动
+  deleteActivity: function () {
+    const token = wx.getStorageSync('token')
+    request.deleteActivity(token, this.data.activityId, function (err, data) {
+      if (err || data.code !== 0) {
+        wx.showToast({
+          title: '删除失败',
+        })
+        return;
+      }
+      wx.redirectTo({
+        url: '/pages/index/index',
+      })
     })
   }
 })

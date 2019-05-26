@@ -12,16 +12,42 @@ Page({
     endDate: utils.formatTime(+ new Date(), '-'),
     endTime: '23:59',
     title: '',
-    position: '',
+    location: '',
     description:'',
     unit:'',
+    isEdit: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const activityId = options.id;
     
+    if (!activityId) return;
+    const that = this;
+    const token = wx.getStorageSync('token');
+
+    this.setData({
+      isEdit: true,
+      activityId,
+    });
+    request.getActivityDetail(token, activityId, function(err, res) {
+      if (err || res.code !== 0) {
+        return;
+      }
+      res = res.data;
+      that.setData({
+        title: res.title,
+        location: res.location,
+        description: res.description,
+        unit: res.unit,
+        startDate: utils.formatTime(res.startTime, '-'),
+        startTime: utils.formatTime(res.startTime, ':'),
+        endDate: utils.formatTime(res.endTime, '-'),
+        endTime: utils.formatTime(res.endTime, ':'),
+      });
+    })
   },
 
   /**
@@ -79,7 +105,7 @@ Page({
     const type = e.target.dataset.type
 
     this.setData({
-      [type]: e.detail.value,
+      [type]: e.detail.value.trim(),
     })
   },
   /**
@@ -87,8 +113,9 @@ Page({
    */
   handleFormChange: function (e) {
     const field = e.target.dataset.key;
+    console.log(e);
     this.setData({
-      [field]: e.detail.value,
+      [field]: e.detail.value.trim(),
     })
   },
   /**
@@ -105,20 +132,35 @@ Page({
     const endTime = [this.data.endDate, this.data.endTime + ':00'].join(' ')
     const data = {
       title: this.data.title,
-      position: this.data.position,
+      location: this.data.location || '',
       description: this.data.description,
       unit: this.data.unit,
       startTime: +new Date(startTime),
       endTime: +new Date(endTime)
     }
-
+    const that = this;
     const token = wx.getStorageSync('token');
+    if (this.data.isEdit) {
+      data.activityId = this.data.activityId;
+      request.updateActivity(token, data, function (err ,res) {
+        if (err || res.code !== 0) {
+          wx.showToast({
+            title: '修改失败',
+          })
+          return;
+        }
+        wx.redirectTo({
+          url: '/pages/detail/detail?id=' + that.data.activityId,
+        })
+      })
+      return;
+    }
     request.createActivity(token, data, function (err, res) {
       if (err) {
         console.log(err);
         return;
       }
-      console.log(res)
+      
       wx.redirectTo({
         url: '/pages/detail/detail?id=' + res.data.id,
       })

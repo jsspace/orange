@@ -27,16 +27,20 @@
   </view>
   <view>
     <view class="weui-cells__title">报名列表</view>
-    <view wx:for="{{activity.parts}}" wx:key="{{index}}">
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <image src="{{userIcon}}" class="user-image"></image>
+    <view wx:for="{{activity.parts}}" wx:key="{{index}}" class="parts-list">
+        <view class="part-item">
+          <view class="flex">
+            <view class="part-profile">
+              <image src="{{item.profile}}" class="user-image"></image>
+            </view>
+            <view class="part-username">{{item.userName}}</view>
           </view>
-          <view class="weui-cell__bd">{{item.name}}</view>
-          <view class="weui-cell__ft">{{item.count}}</view>
+          
+          <view class="flex">
+            <view class="part-number">{{item.quantity}}</view>
+          </view>
+          
         </view>
-      </view>
     </view>
     
     <view class="weui-cells weui-cells_after-title">
@@ -45,8 +49,11 @@
           
         </view>
         <view class="weui-cell__bd">总计</view>
-        <view class="weui-cell__ft">{{quantity.quantity}}</view>
+        <view class="weui-cell__ft">{{activity.parts.length}}</view>
       </view>
     </view>
   </view>
+  <button class="update-btn" bindtap="handleEdit">修改活动</button>
+  <button class="delet-btn" bindtap="handleDelete">删除活动</button>
+  <button open-type="share" class="share-btn">分享给好友</button>
 </view>

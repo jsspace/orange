@@ -1,4 +1,9 @@
 /* pages/share/share.wxss */
+
+.page {
+  padding-bottom: 100px;
+}
+
 .activity-card {
   margin: 10px 10px 5px;
   background: #fff;
@@ -9,25 +14,29 @@
   position: relative;
   background: #f0987b;
 }
+
 .activity-info {
   font-size: 12px;
-  display:flex;
-  justify-content:flex-start;
-  height:20px;
-  align-items:left;
+  display: flex;
+  justify-content: flex-start;
+  height: 20px;
+  align-items: left;
 }
+
 .icon {
   padding-right: 5px;
   vertical-align: middle;
   width: 15px;
   height: 15px;
 }
+
 .user-image {
   margin-right: 5px;
   vertical-align: middle;
-  width:20px;
+  width: 20px;
   height: 20px;
 }
+
 .create-btn {
   position: fixed;
   bottom: 0;
@@ -40,4 +49,98 @@
   color: #fff;
   font-size: 20px;
   font-weight: bold;
+}
+
+.parts-list {
+  margin-bottom: 20px;
+}
+
+.part-number {
+  width: 10px;
+  height: 22px;
+  font-family: DINAlternate;
+  font-size: 19px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.26);
+  margin-right: 15px;
+}
+
+.part-item {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.part-item:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.total-section {
+  margin-top: 15px;
+}
+
+.part-profile {
+  width: 32px;
+  height: 32px;
+  margin-left: 23px;
+}
+
+.part-username {
+  margin-left: 20px;
+  font-family: PingFangSC;
+  font-size: 15px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: rgba(0, 0, 0, 0.87);
+  max-width: 50%;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.part-quantity {
+  margin-right: 4px;
+  color: #ff9500;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: PingFangSC;
+}
+
+.part-unit {
+  color: rgba(0, 0, 0, 0.38);
+  margin-right: 18px;
+  font-size: 13px;
+}
+
+.user-image {
+  vertical-align: middle;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.total-section {
+  margin-top: 15px;
+}
+
+.activity-user {
+  margin-right: 5px;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
 }

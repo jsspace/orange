@@ -5,6 +5,7 @@ var base64 = require("../images/base64");
 const appInstance = getApp();
 const loginUtil = require('../../utils/login.js');
 var getUserNumber = 0;
+var signing = false;
 
 console.log(appInstance.data);
 Page({
@@ -15,6 +16,7 @@ Page({
   data: {
     activity: {},
     hasAuth: false,
+    inQueue: false,
   },
 
   /**
@@ -29,7 +31,8 @@ Page({
     this.setData({
       timeIcon: base64.timeIcon,
       locationIcon: base64.locationIcon,
-      userIcon: base64.userIcon
+      userIcon: base64.userIcon,
+      activityId: options.id,
     });
     loginUtil.login(function (err, token) {
       if (err) {
@@ -43,6 +46,7 @@ Page({
       wx.setStorageSync('token', token)
       that.getActivityDetail(options.id);
       that.getUserInfo(token);
+      that.checkUserInQueue(options.id);
     })
     
   },
@@ -64,7 +68,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    wx.redirectTo({
+      url: '/pages/index/index',
+    })
   },
 
   /**
@@ -111,10 +117,11 @@ Page({
             console.log(err);
             return;
           }
-          console.log(token);
+          
           wx.setStorageSync('token', token)
           that.getActivityDetail(id);
           that.getUserInfo(token);
+          that.checkUserInQueue();
           getUserNumber++;
         })
         return;
@@ -152,6 +159,7 @@ Page({
 
   // 报名
   signUpActivity: function () {
+    if (signing) return;
     var that = this;
     var token = wx.getStorageSync('token');
     var data = {
@@ -161,6 +169,7 @@ Page({
       shareId: 0
     };
     request.signUpActivity(token, data, function(err, res) {
+      signing = false;
       if (err) {
         console.error(err);
       }
@@ -169,7 +178,12 @@ Page({
         title: '报名成功',
         icon: 'success'
       });
-
+      that.getActivityDetail(that.data.activityId)
+      
+      that.setData({
+        queueId: res.data.id,
+        inQueue: true,
+      });
     })
   },
 
@@ -181,6 +195,59 @@ Page({
 
     request.updateUserInfo(token, data, function (err, data) {
       that.signUpActivity();
+    })
+  },
+  
+  // 取消报名确认
+  confirmCancelQueue: function () {
+    const that = this;
+    wx.showModal({
+      title: '提示',
+      content: '确认取消此活动？',
+      success: function (res) {
+        if (res.confirm) {
+          that.deleteQueue();
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+
+  // 删除报名
+  deleteQueue: function () {
+    const that = this
+    const token = wx.getStorageSync('token')
+    request.deleteQueue(token, this.data.queueId, function (err, res) {
+      if (err || res.code !== 0) {
+        wx.showToast({
+          title: '取消活动失败',
+        })
+        return;
+      }
+      that.checkUserInQueue(that.data.activityId)
+      that.getActivityDetail(that.data.activityId)
+    })
+  },
+
+  // 检查是否参见活动
+  checkUserInQueue: function (activityId) {
+    const token = wx.getStorageSync('token')
+    const that = this
+    request.checkUserInQueue(token, activityId, function (err, res) {
+      if (err) {
+        return;
+      }
+      if (res.data.length) {
+        that.setData({
+          inQueue: true,
+          queueId: res.data[0].id,
+        });
+      } else {
+        that.setData({
+          inQueue: false,
+        });
+      }
     })
   }
 })

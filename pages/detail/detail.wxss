@@ -1,4 +1,7 @@
 /* pages/detail/detail.wxss */
+.page {
+  padding-bottom: 80px;
+}
 .activity-card {
   margin: 10px 10px 5px;
   background: #fff;
@@ -30,7 +33,6 @@
 }
 
 .parts-list {
-  background: #fff;
   margin-bottom: 20px;
 }
 .part-number {
@@ -51,7 +53,16 @@
   height: 60px;
   display: flex;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
+  background: #fff;
+}
+
+.part-item:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.total-section {
+  margin-top: 15px;
 }
 
 .part-profile {
@@ -126,7 +137,7 @@ button::after {
 .update-btn {
   margin: 30px 15px 15px;
   padding: 0 30px;
-  background: #f09135;
+  background: rgba(240,146,53, 0.8);
   color: #fff;
   font-size: 20px;
   outline: none;

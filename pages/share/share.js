@@ -111,6 +111,8 @@ Page({
             console.log(err);
             return;
           }
+          console.log(token);
+          wx.setStorageSync('token', token)
           that.getActivityDetail(id);
           that.getUserInfo(token);
           getUserNumber++;

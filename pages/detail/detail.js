@@ -72,8 +72,25 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  // 分享
+  onShareAppMessage: function (e) {
+    if (!e.target) {
+      return {
+        title: '简单，方便的发起报名，就在橙子报名',
+        path: 'pages/index/index',
+        imageUrl: 'https://cdn.webfem.com/webfem/5abf6aa0-7c9b-11e9-b71c-8991f1dd05b3',
+      }
+    }
+    const activityId = this.data.activityId;
+   
+    return {
+      title: '我在橙子报名发起了一个活动，快来参加吧',
+      path: 'pages/share/share?id=' + activityId,
+      imageUrl: 'https://cdn.webfem.com/webfem/5abf6aa0-7c9b-11e9-b71c-8991f1dd05b3',
+      success: function (e) {
+        console.log(e);
+      }
+    }
   },
 
   // 获取活动详情

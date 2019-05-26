@@ -38,13 +38,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "qun",
 					"pathName": "pages/share/share",
-					"query": "id=1034",
+					"query": "id=10034",
 					"scene": 1044,
 					"shareInfo": {
 						"groupName": "测试模拟群1",

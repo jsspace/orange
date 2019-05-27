@@ -17,12 +17,28 @@ Page({
     activity: {},
     hasAuth: false,
     inQueue: false,
+    userHeader: false,
+  },
+
+  handleGoIndex: function () {
+    wx.redirectTo({
+      url: '/pages/index/index',
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const btnInfo = wx.getMenuButtonBoundingClientRect();
+    const wxVersion = wx.getSystemInfoSync().version;
+    
+    if (wxVersion >= '7.0.0') {
+      this.setData({
+        userHeader: true,
+        headerHeight: btnInfo.bottom,
+      });
+    }
     // 分享带参数
     wx.showShareMenu({
       withShareTicket: true
@@ -42,7 +58,7 @@ Page({
         })
         return;
       }
-      console.log(token);
+      
       wx.setStorageSync('token', token)
       that.getActivityDetail(options.id);
       that.getUserInfo(token);
@@ -121,7 +137,7 @@ Page({
           wx.setStorageSync('token', token)
           that.getActivityDetail(id);
           that.getUserInfo(token);
-          that.checkUserInQueue();
+          that.checkUserInQueue(id);
           getUserNumber++;
         })
         return;
@@ -234,11 +250,12 @@ Page({
   checkUserInQueue: function (activityId) {
     const token = wx.getStorageSync('token')
     const that = this
+    if (!activityId) return;
     request.checkUserInQueue(token, activityId, function (err, res) {
       if (err) {
         return;
       }
-      if (res.data.length) {
+      if (res.data && res.data.length) {
         that.setData({
           inQueue: true,
           queueId: res.data[0].id,

@@ -1,5 +1,9 @@
 <!--pages/share/share.wxml-->
 <view class="page">
+  <view wx:if="{{1}}" class="header" style="height:{{headerHeight + 8}}px">
+    <view class="home" bindtap="handleGoIndex"></view>
+    <view class="header-title">橙子报名</view>
+  </view>
   <view class="activity-card">
     <view class="weui-article__h2 activity-title">{{activity.title}}</view>
     <view>

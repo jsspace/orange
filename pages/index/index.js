@@ -11,6 +11,8 @@ Page({
   data: {
     hasAuth: false,
     activityList: [],
+    queueList: [],
+    currentTab: 0,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -30,7 +32,7 @@ Page({
         console.log(err);
         return;
       }
-      that.getActivityList(token);
+      that.showQueueList();
       that.getUserInfo(token);
     })
   },
@@ -51,8 +53,7 @@ Page({
       withShareTicket: true
     })
     if (SHOE_TIMES > 1) {
-      var token = wx.getStorageSync('token');
-      this.getActivityList(token);
+      this.showQueueList();
     }
     SHOE_TIMES++;
   },
@@ -100,6 +101,24 @@ Page({
   },
   handleGetUserInfo: function(e) {
     console.log(e);
+  },
+  // 显示报名列表
+  showQueueList: function(e) {
+    var that = this;
+    that.setData({
+      currentTab: 0,
+    });
+    var token = wx.getStorageSync("token");
+    that.getQueueList(token);
+  },
+  // 显示创建列表
+  showActivityList: function(e) {
+    var that = this;
+    that.setData({
+      currentTab: 1,
+    });
+    var token = wx.getStorageSync("token");
+    that.getActivityList(token);
   },
   // 分享
   onShareAppMessage: function(e) {
@@ -197,6 +216,34 @@ Page({
       wx.navigateTo({
         url: '/pages/create/create',
       })
+    })
+  },
+  // 显示我报名的活动
+  getQueueList: function(token) {
+    var that = this;
+    request.getQueueList(token, function (err, res) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      // 这里是说token失效
+      if (res.code !== 0) {
+        loginUtil.codeToken(function (err, token) {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          that.getQueueList(token);
+          that.getUserInfo(token);
+        })
+        return;
+      }
+      const list = res.data.forEach(function (item) {
+        item.startTime = formatTime.formatTime(item.startTime)
+      })
+      that.setData({
+        queueList: res.data
+      });
     })
   }
 })

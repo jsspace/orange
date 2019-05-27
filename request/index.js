@@ -188,6 +188,23 @@ const checkUserInQueue = function (token, activityId, cb) {
   })
 }
 
+// 查询用户的排队
+const getQueueList = function (token, cb) {
+  wx.request({
+    url: `${HOST}/orange/queue`,
+    method: 'GET',
+    header: {
+      token,
+    },
+    success: function (res) {
+      cb(null, res.data);
+    },
+    fail: function (e) {
+      cb(e);
+    }
+  })
+}
+
 module.exports = {
   getTokenWithCode,
   getActivityList,
@@ -200,4 +217,5 @@ module.exports = {
   deleteActivity,
   deleteQueue,
   checkUserInQueue,
+  getQueueList,
 }

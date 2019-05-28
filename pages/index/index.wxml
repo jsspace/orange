@@ -35,12 +35,13 @@
         <view class="activity-content">
           {{item.description}}
         </view>
-      <view class="bottom-bar">
-        <view class="">报名{{item.parts.length}}{{item.unit || '人'}}</view>
-        <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
+        <view class="bottom-bar">
+          <view class="">报名{{item.parts.length}}{{item.unit || '人'}}</view>
+          <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
+        </view>
       </view>
     </view>
+    <view wx:if="{{hasAuth}}" class="create-btn" bindtap="gotoCreate">创建一个活动</view>
+    <button wx:else open-type="getUserInfo" class="create-btn" bindgetuserinfo="handleGetUserInfo">创建一个活动</button>
   </view>
-  <view wx:if="{{hasAuth}}" class="create-btn" bindtap="gotoCreate">创建一个活动</view>
-  <button wx:else open-type="getUserInfo" class="create-btn" bindgetuserinfo="handleGetUserInfo">创建一个活动</button>
 </view>

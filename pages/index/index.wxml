@@ -35,11 +35,9 @@
         <view class="activity-content">
           {{item.description}}
         </view>
-
-        <view class="bottom-bar">
-          <view class="">报名{{item.quantity}}{{item.unit || '人'}}</view>
-          <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
-        </view>
+      <view class="bottom-bar">
+        <view class="">报名{{item.parts.length}}{{item.unit || '人'}}</view>
+        <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
       </view>
     </view>
   </view>

@@ -128,8 +128,8 @@ Page({
       })
       return;
     }
-    const startTime = [this.data.startDate, this.data.startTime + ':00'].join(' ')
-    const endTime = [this.data.endDate, this.data.endTime + ':00'].join(' ')
+    const startTime = [this.data.startDate.replace(/\-/g, '/'), this.data.startTime + ':00'].join(' ')
+    const endTime = [this.data.endDate.replace(/\-/g, '/'), this.data.endTime + ':00'].join(' ')
     const data = {
       title: this.data.title,
       location: this.data.location || '',
@@ -138,6 +138,7 @@ Page({
       startTime: +new Date(startTime),
       endTime: +new Date(endTime)
     }
+    console.log(data)
     const that = this;
     const token = wx.getStorageSync('token');
     if (this.data.isEdit) {

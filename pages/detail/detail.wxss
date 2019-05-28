@@ -1,6 +1,6 @@
 /* pages/detail/detail.wxss */
 .page {
-  padding-bottom: 80px;
+  padding-bottom: 100px;
 }
 .activity-card {
   margin: 10px 10px 5px;

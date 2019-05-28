@@ -1,24 +1,47 @@
 <!--pages/index/index.wxml-->
 <view class="page">
-  <view wx:if="{{activityList.length === 0}}" class="no-result">还没有一个活动</view>
-  <view wx:else class="activity-list">
-    <view class="activity-card" wx:for="{{activityList}}" wx:key="{{index}}" data-id='{{item.id}}' bindtap="gotoDetail">
-      <view class="activity-title">{{item.title}}</view>
-      <view class="activity-time">
-        <view>{{item.startTime}}</view>
-        <view></view>
-      </view>
-      <view class="activity-content">
-        {{item.description}}
-      </view>
-
-      <view class="bottom-bar">
-        <view class="">报名{{item.parts.length}}{{item.unit || '人'}}</view>
-        <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
+  <view class="menu">
+    <view class="menu-btn {{currentTab==0?'active':''}}" bindtap="showQueueList">我参加的</view>
+    <view class="menu-btn {{currentTab==1?'active':''}}" bindtap="showActivityList">我创建的</view>
+  </view>
+  <view class='my-create' wx:if="{{currentTab==0}}">
+    <view wx:if="{{queueList.length === 0}}" class="no-result">没有参加任何活动</view>
+    <view wx:else class="activity-list">
+      <view class="activity-card" wx:for="{{queueList}}" wx:key="{{index}}" data-id='{{item.id}}' bindtap="gotoDetail">
+        <view class="activity-title">{{item.id}}</view>
+        <view class="activity-time">
+          <view></view>
+          <view></view>
+        </view>
+        <view class="activity-content">
+          {{item.description}}
+        </view>
+        <view class="bottom-bar">
+          <view></view>
+          <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
+        </view>
       </view>
     </view>
   </view>
-
-  <view wx:if="{{hasAuth}}" class="create-btn" bindtap="gotoCreate">创建一个活动</view>
-  <button wx:else open-type="getUserInfo" class="create-btn" bindgetuserinfo="handleGetUserInfo">创建一个活动</button>
+  <view class='my-queue' wx:if="{{currentTab==1}}">
+    <view wx:if="{{activityList.length === 0}}" class="no-result">还没有一个活动</view>
+    <view wx:else class="activity-list">
+      <view class="activity-card" wx:for="{{activityList}}" wx:key="{{index}}" data-id='{{item.id}}' bindtap="gotoDetail">
+        <view class="activity-title">{{item.title}}</view>
+        <view class="activity-time">
+          <view>{{item.startTime}}</view>
+          <view></view>
+        </view>
+        <view class="activity-content">
+          {{item.description}}
+        </view>
+        <view class="bottom-bar">
+          <view class="">报名{{item.parts.length}}{{item.unit || '人'}}</view>
+          <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{hasAuth}}" class="create-btn" bindtap="gotoCreate">创建一个活动</view>
+    <button wx:else open-type="getUserInfo" class="create-btn" bindgetuserinfo="handleGetUserInfo">创建一个活动</button>
+  </view>
 </view>

@@ -7,7 +7,7 @@
           <view class="weui-label">活动标题</view>
         </view>
         <view class="weui-cell__bd">
-          <input bindinput="handleFormChange" value="{{title}}" data-key="title" class="weui-input" placeholder="活动标题" />
+          <input bindinput="handleFormChange" value="{{title}}" data-key="title" class="weui-input" placeholder="活动标题" maxlength="{{40}}"/>
         </view>
       </view>
     </view>
@@ -16,7 +16,7 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <textarea auto bindinput="handleFormChange" data-key="description"  class="weui-textarea" value="{{description}}" placeholder="请输入活动简介" style="height: 4.3em" />
+          <textarea auto bindinput="handleFormChange" data-key="description"  class="weui-textarea" value="{{description}}" placeholder="请输入活动简介" auto-height="{{true}}" maxlength="{{200}}"/>
           <view class="weui-textarea-counter">{{description.length}}/200</view>
         </view>
       </view>

@@ -29,13 +29,13 @@ Page({
       isEdit: true,
       activityId,
     });
-
+    this.getActivityDetailInEditPage(activityId);
   },
   /**
    * 
    * 修改页请求活动信息
    */
-  getActivityDetailInEditPage: function() {
+  getActivityDetailInEditPage: function (activityId) {
     const that = this;
     const token = wx.getStorageSync('token');
 

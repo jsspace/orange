@@ -2,36 +2,43 @@
 var utils = require('../../utils/time.js');
 const request = require('../../request/index.js');
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    startDate: utils.formatTime(+ new Date(), '-'),
+    startDate: utils.formatTime(+new Date(), '-'),
     startTime: '00:00',
-    endDate: utils.formatTime(+ new Date(), '-'),
+    endDate: utils.formatTime(+new Date(), '-'),
     endTime: '23:59',
     title: '',
     location: '',
-    description:'',
-    unit:'',
+    description: '',
+    unit: '',
     isEdit: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     const activityId = options.id;
-    
+
     if (!activityId) return;
-    const that = this;
-    const token = wx.getStorageSync('token');
 
     this.setData({
       isEdit: true,
       activityId,
     });
+    this.getActivityDetailInEditPage(activityId);
+  },
+  /**
+   * 
+   * 修改页请求活动信息
+   */
+  getActivityDetailInEditPage: function (activityId) {
+    const that = this;
+    const token = wx.getStorageSync('token');
+
     request.getActivityDetail(token, activityId, function(err, res) {
       if (err || res.code !== 0) {
         return;
@@ -51,57 +58,9 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 时间改变监听函数
    */
-  onReady: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    
-  },
-  /**
-   * 时间改变
-   */
-  bindDateChange: function (e) {
+  bindDateChange: function(e) {
     const type = e.target.dataset.type
 
     this.setData({
@@ -111,9 +70,9 @@ Page({
   /**
    * 表单数据
    */
-  handleFormChange: function (e) {
+  handleFormChange: function(e) {
     const field = e.target.dataset.key;
-    console.log(e);
+
     this.setData({
       [field]: e.detail.value.trim(),
     })
@@ -121,7 +80,7 @@ Page({
   /**
    * 创建活动
    */
-  handleCreate: function () {
+  handleCreate: function() {
     if (!this.data.title) {
       wx.showToast({
         title: '活动标题必填',
@@ -138,12 +97,19 @@ Page({
       startTime: +new Date(startTime),
       endTime: +new Date(endTime)
     }
-    console.log(data)
+
+    if (data.endTime < data.startTime) {
+      wx.showToast({
+        title: '结束时间不能早于开始时间',
+      })
+      return;
+    }
+
     const that = this;
     const token = wx.getStorageSync('token');
     if (this.data.isEdit) {
       data.activityId = this.data.activityId;
-      request.updateActivity(token, data, function (err ,res) {
+      request.updateActivity(token, data, function(err, res) {
         if (err || res.code !== 0) {
           wx.showToast({
             title: '修改失败',
@@ -156,12 +122,12 @@ Page({
       })
       return;
     }
-    request.createActivity(token, data, function (err, res) {
+    request.createActivity(token, data, function(err, res) {
       if (err) {
         console.log(err);
         return;
       }
-      
+
       wx.redirectTo({
         url: '/pages/detail/detail?id=' + res.data.id,
       })

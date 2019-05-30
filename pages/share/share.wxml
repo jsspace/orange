@@ -34,9 +34,9 @@
         <view wx:for="{{activity.parts}}" wx:key="{{index}}" class="part-item">
             <view class="flex">
                 <view class="part-profile">
-                    <image src="{{item.profile}}" class="user-image"></image>
+                    <image src="{{item.userInfo.profile}}" class="user-image"></image>
                 </view>
-                <view class="part-username">{{item.userName}}</view>
+                <view class="part-username">{{item.userInfo.username}}</view>
             </view>
             <view class="flex">
                 <view class="part-number">{{item.quantity}}</view>

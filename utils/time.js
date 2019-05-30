@@ -24,3 +24,7 @@ function toStr (n) {
   n = n.toString();
   return n[1] ? n : '0' + n;
 }
+
+exports.getIOSTime = function (timeStr) {
+  return timeStr.replace(/\-/g, '/');
+}

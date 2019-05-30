@@ -171,7 +171,25 @@ const deleteQueue = function (token, id, cb) {
   })
 }
 
-// 检查是否报名
+// 查询一个活动下的报名信息
+const getQueuesInActivity = function (token, activityId, cb) {
+  wx.request({
+    url: `${HOST}/orange/queue/activity/${activityId}`,
+    method: 'get',
+    header: {
+      token,
+    },
+    success: function (res) {
+      cb(null, res.data);
+    },
+    fail: function (e) {
+      cb(e)
+    }
+  })
+}
+
+
+// 检查是用户否报名
 const checkUserInQueue = function (token, activityId, cb) {
   wx.request({
     url: `${HOST}/orange/queue/activity_with_user/${activityId}`,
@@ -218,4 +236,5 @@ module.exports = {
   deleteQueue,
   checkUserInQueue,
   getQueueList,
+  getQueuesInActivity,
 }

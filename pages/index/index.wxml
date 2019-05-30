@@ -26,7 +26,7 @@
   <view class='my-queue' wx:if="{{currentTab==1}}">
     <view wx:if="{{activityList.length === 0}}" class="no-result">还没有一个活动</view>
     <view wx:else class="activity-list">
-      <view class="activity-card" wx:for="{{activityList}}" wx:key="{{index}}" data-id='{{item.id}}' bindtap="gotoDetail">
+      <view class="activity-card" wx:for="{{activityList}}" wx:key="{{index}}" data-id='{{item.activityId}}' bindtap="gotoDetail">
         <view class="activity-title">{{item.title}}</view>
         <view class="activity-time">
           <view>{{item.startTime}}</view>
@@ -37,7 +37,7 @@
         </view>
         <view class="bottom-bar">
           <view class="">报名{{item.parts.length}}{{item.unit || '人'}}</view>
-          <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
+          <button class="share-btn" open-type="share" data-id="{{item.activityId}}" data-title="{{item.title}}"></button>
         </view>
       </view>
     </view>

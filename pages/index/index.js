@@ -179,7 +179,7 @@ Page({
         return;
       }
       
-      if (data.data && data.data.user.username) {
+      if (data.data && data.data.username) {
         that.setData({
           hasAuth: true,
         })

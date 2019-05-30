@@ -77,6 +77,12 @@ Page({
       [field]: e.detail.value.trim(),
     })
   },
+  goToActivityDetailPage: function (activityId) {
+    if (!activityId) return;
+    wx.redirectTo({
+      url: '/pages/detail/detail?id=' + activityId,
+    })
+  },
   /**
    * 创建活动
    */
@@ -87,8 +93,8 @@ Page({
       })
       return;
     }
-    const startTime = [this.data.startDate.replace(/\-/g, '/'), this.data.startTime + ':00'].join(' ')
-    const endTime = [this.data.endDate.replace(/\-/g, '/'), this.data.endTime + ':00'].join(' ')
+    const startTime = [utils.getIOSTime(this.data.startDate), this.data.startTime + ':00'].join(' ')
+    const endTime = [utils.getIOSTime(this.data.endDate), this.data.endTime + ':00'].join(' ')
     const data = {
       title: this.data.title,
       location: this.data.location || '',
@@ -116,9 +122,7 @@ Page({
           })
           return;
         }
-        wx.redirectTo({
-          url: '/pages/detail/detail?id=' + that.data.activityId,
-        })
+        that.goToActivityDetailPage(that.data.activityId);
       })
       return;
     }
@@ -128,9 +132,7 @@ Page({
         return;
       }
 
-      wx.redirectTo({
-        url: '/pages/detail/detail?id=' + res.data.id,
-      })
+      that.goToActivityDetailPage(res.data.activityId);
     })
   }
 })

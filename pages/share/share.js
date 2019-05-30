@@ -17,52 +17,41 @@ Page({
         hasAuth: false,
         inQueue: false,
         userHeader: false,
+        queueList: [],
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        const btnInfo = wx.getMenuButtonBoundingClientRect();
-        const wxVersion = wx.getSystemInfoSync().version;
-
-        if (wxVersion >= '7.0.0') {
-            this.setData({
-                userHeader: true,
-                headerHeight: btnInfo.bottom,
-            });
-        }
+        // 自定义header
+        this.setCustomHeader();
         // 分享带参数
         wx.showShareMenu({
             withShareTicket: true
         });
+
         const that = this;
+        const activityId = options.id;
         this.setData({
             timeIcon: base64.timeIcon,
             locationIcon: base64.locationIcon,
             userIcon: base64.userIcon,
-            activityId: options.id,
+            activityId,
         });
         loginUtil.login(function (err, token) {
             if (err) {
-
                 wx.showToast({
                     title: '出错了',
                 })
                 return;
             }
 
-            wx.setStorageSync('token', token)
-            that.getActivityDetail(options.id);
+            
+            that.getActivityDetail(activityId);
+            that.checkUserInQueue(activityId);
+            // that.getQueuesInActivity(activityId);
             that.getUserInfo(token);
-            that.checkUserInQueue(options.id);
         })
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
 
     },
 
@@ -73,38 +62,35 @@ Page({
     },
 
     /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
      * 用户点击右上角分享
      */
     onShareAppMessage: function () {
 
+    },
+
+    // 自定义header
+    setCustomHeader: function () {
+        const btnInfo = wx.getMenuButtonBoundingClientRect();
+        const wxVersion = wx.getSystemInfoSync().version;
+
+        if (wxVersion >= '7.0.0') {
+            this.setData({
+                userHeader: true,
+                headerHeight: btnInfo.bottom,
+            });
+        }
+    },
+
+    // 获取活动的所有报名
+    getQueuesInActivity: function (activityId) {
+        const that = this;
+        const token = wx.getStorageSync('token');
+        request.getQueuesInActivity(token, activityId, function (err, res) {
+            if (err || res.code !== 0) return;
+            that.setData({
+                queueList: res.data,
+            });
+        })
     },
 
     // 获取活动详情
@@ -112,26 +98,7 @@ Page({
         const that = this;
         const token = wx.getStorageSync('token');
         request.getActivityDetail(token, id, function (err, res) {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            if (!res.data) {
-                if (getUserNumber > 0) return;
-                loginUtil.codeToken(function (err, token) {
-                    if (err) {
-                        console.log(err);
-                        return;
-                    }
-
-                    wx.setStorageSync('token', token)
-                    that.getActivityDetail(id);
-                    that.getUserInfo(token);
-                    that.checkUserInQueue(id);
-                    getUserNumber++;
-                })
-                return;
-            }
+            if (err || res.code !== 0) return;
             // set data
             res.data.startTime = formatTime.formatTime(res.data.startTime);
             res.data.endTime = formatTime.formatTime(res.data.endTime);
@@ -143,15 +110,26 @@ Page({
     // 获取用户信息
     getUserInfo: function (token) {
         var that = this;
+        const activityId = that.data.activityId;
         request.getUserInfo(token, function (err, data) {
-            if (err) {
-                that.setData({
-                    hasAuth: false,
+            if (err) return;
+            // 防止多次循环请求
+            if (getUserNumber > 1) return;
+
+            // 用户登录失效
+            if (data.code !== 0) {
+                getUserNumber++;
+                loginUtil.codeToken(function (err, token) {
+                    if (err) return;
+                    that.getActivityDetail(activityId);
+                    that.checkUserInQueue(activityId);
+                    // that.getQueuesInActivity(activityId);
+                    that.getUserInfo(token);
                 })
-                return;
             }
 
-            if (data.data && data.data.user.username) {
+            // 有数据且有头像
+            if (data.data && data.data.username) {
                 that.setData({
                     hasAuth: true,
                 })
@@ -169,7 +147,7 @@ Page({
         var that = this;
         var token = wx.getStorageSync('token');
         var data = {
-            activityId: this.data.activity.id,
+            activityId: this.data.activity.activityId,
             partQuantity: 1,
             shareType: 0,
             shareId: 0
@@ -185,7 +163,7 @@ Page({
                 icon: 'success'
             });
             that.getActivityDetail(that.data.activityId)
-
+            
             that.setData({
                 queueId: res.data.id,
                 inQueue: true,
@@ -249,7 +227,7 @@ Page({
             if (res.data && res.data.length) {
                 that.setData({
                     inQueue: true,
-                    queueId: res.data[0].id,
+                    queueId: res.data[0].partId,
                 });
             } else {
                 that.setData({

@@ -44,7 +44,7 @@
 					"id": 0,
 					"name": "qun",
 					"pathName": "pages/share/share",
-					"query": "id=10034",
+					"query": "id=10050",
 					"scene": 1044,
 					"shareInfo": {
 						"groupName": "测试模拟群1",

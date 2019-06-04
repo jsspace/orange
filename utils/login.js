@@ -34,10 +34,7 @@ module.exports = {
           callback(err)
           return;
         }
-        wx.setStorage({
-          key: 'token',
-          data: data.token,
-        })
+        wx.setStorageSync('token', data.token);
         callback(null, data.token)
       })
     })

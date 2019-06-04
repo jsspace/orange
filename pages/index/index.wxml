@@ -1,8 +1,8 @@
 <!--pages/index/index.wxml-->
 <view class="page">
   <scroll-view class='tab-h' scroll-x style='width: 100%;'>
-    <view class="tab-item {{currentTab==0?'active':''}}">我参加的</view>
-    <view class="tab-item {{currentTab==1?'active':''}}">我创建的</view>
+    <view class="tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="switchNav">我参加的</view>
+    <view class="tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="switchNav">我创建的</view>
   </scroll-view>
   <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height: {{contentHeight}}px">
     <swiper-item class="tab-content-item">
@@ -10,8 +10,8 @@
         <view>
           <view wx:if="{{queueList.length === 0}}" class="no-result">没有参加任何活动</view>
           <view wx:else class="activity-list">
-            <view class="activity-card" wx:for="{{queueList}}" wx:key="{{index}}" data-id='{{item.id}}' bindtap="gotoDetail">
-              <view class="activity-title">{{item.id}}</view>
+            <view class="activity-card" wx:for="{{queueList}}" wx:key="{{index}}" data-id='{{item.activityId}}' bindtap="gotoDetail">
+              <view class="activity-title">{{item.activityId}}</view>
               <view class="activity-time">
                 <view></view>
                 <view></view>
@@ -21,7 +21,7 @@
               </view>
               <view class="bottom-bar">
                 <view></view>
-                <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
+                <button class="share-btn" open-type="share" data-id="{{item.activityId}}" data-title="{{item.title}}"></button>
               </view>
             </view>
           </view>
@@ -44,7 +44,7 @@
               </view>
               <view class="bottom-bar">
                 <view class="">报名{{item.parts.length}}{{item.unit || '人'}}</view>
-                <button class="share-btn" open-type="share" data-id="{{item.id}}" data-title="{{item.title}}"></button>
+                <button class="share-btn" open-type="share" data-id="{{item.activityId}}" data-title="{{item.title}}"></button>
               </view>
             </view>
           </view>

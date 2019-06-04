@@ -95,7 +95,7 @@ button::after {
   line-height: 30px;
   width: 50%;
   text-align: left;
-  padding: 5px;
+  padding: 0 5px;
   background: #ffa500;
   color: #fff;
   box-sizing:border-box;

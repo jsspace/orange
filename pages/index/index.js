@@ -58,12 +58,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    console.log('show');
     wx.showShareMenu({
       withShareTicket: true
     })
     if (SHOE_TIMES > 1) {
-      this.showQueueList();
+      if (e.detail.current == 0) {
+        this.showQueueList(e);
+      } else {
+        this.showActivityList(e);
+      }
     }
     SHOE_TIMES++;
   },
@@ -140,6 +143,10 @@ Page({
     } else {
       this.showActivityList(e);
     }
+  },
+  // 点击切换标签
+  switchNav: function(e) {
+    console.log(e);
   },
   // 分享
   onShareAppMessage: function(e) {

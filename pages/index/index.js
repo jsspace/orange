@@ -13,11 +13,21 @@ Page({
     activityList: [],
     queueList: [],
     currentTab: 0,
+    contentHeight: "",
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this;
+    wx.getSystemInfo({
+      success: function(res) {
+        var clientHeight = res.windowHeight;
+        that.setData({
+          contentHeight: clientHeight
+        })
+      },
+    })
     this.afertLoad();
   },
 
@@ -119,6 +129,17 @@ Page({
     });
     var token = wx.getStorageSync("token");
     that.getActivityList(token);
+  },
+  // 滚动切换标签样式
+  switchTab: function(e) {
+    this.setData({
+      currentTab: e.detail.current
+    });
+    if (e.detail.current == 0) {
+      this.showQueueList(e);
+    } else {
+      this.showActivityList(e);
+    }
   },
   // 分享
   onShareAppMessage: function(e) {

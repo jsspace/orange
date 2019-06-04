@@ -1,24 +1,4 @@
 /* pages/index/index.wxss */
-.menu {
-  display: flex;
-  justify-content: center;
-}
-.menu-btn {
-  height: 30px;
-  line-height: 30px;
-  width: 50%;
-  text-align: center;
-  padding: 5px;
-  background: #f09135;
-  color: #fff;
-}
-.menu-btn:first-child {
-  border-right: 1px solid #fff;
-}
-.active {
-  font-size: 18px;
-  font-weight: bold;
-}
 .activity-list {
   padding-bottom: 70px;
 }
@@ -97,3 +77,46 @@ button::after {
     border-radius: 0;
     border: none;
 }
+
+/* scroll view start */
+
+.tab-h {
+  white-space: nowrap;
+  background: #ffa500;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+}
+
+.tab-item {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  width: 50%;
+  text-align: left;
+  padding: 5px;
+  background: #ffa500;
+  color: #fff;
+  box-sizing:border-box;
+
+}
+
+.tab-item:first-child {
+  /* border-right: 1px solid #fff; */
+  text-align: right;
+}
+
+.active {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.scroll-h {
+  height: 100%;
+}
+
+.tab-content-item {
+  margin-top: 30px;
+}
+/* scroll view end */

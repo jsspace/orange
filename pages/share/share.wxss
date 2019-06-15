@@ -4,6 +4,19 @@
     padding-bottom: 100px;
 }
 
+.no-result {
+    font-size: 18px;
+    text-align: center;
+    color: #999;
+    margin-top: 30%;
+}
+
+.gohome {
+    color: blue;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
 .header {
     background: #ffa500;
     color: #fff;

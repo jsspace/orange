@@ -1,59 +1,65 @@
 <!--pages/share/share.wxml-->
 <view class="page">
-    <view wx:if="{{1}}" class="header" style="height:{{headerHeight + 8}}px">
+    <view wx:if="{{userHeader}}" class="header" style="height:{{headerHeight + 8}}px">
         <view class="home" bindtap="handleGoIndex"></view>
         <view class="header-title">橙子报名</view>
     </view>
-    <view class="activity-card">
-        <view class="weui-article__h2 activity-title">{{activity.title}}</view>
+    <view class="no-result" wx:if="{{noActivity}}">
+        该活动已不存在
+        <view class="gohome" bindtap="handleGoIndex">去首页</view>
+    </view>
+    <view wx:else>
+        <view class="activity-card">
+            <view class="weui-article__h2 activity-title">{{activity.title}}</view>
+            <view>
+                <view class="activity-info">
+                    <image class='icon' src="{{timeIcon}}"></image>
+                    <view>{{activity.startTime}} ~ {{activity.endTime}}</view>
+                </view>
+                <view class="activity-info">
+                    <image class='icon' src="{{locationIcon}}"></image>
+                    <view>{{activity.location}}</view>
+                </view>
+            </view>
+            <view class="weui-article__p">
+                {{activity.description}}
+            </view>
+        </view>
         <view>
-            <view class="activity-info">
-                <image class='icon' src="{{timeIcon}}"></image>
-                <view>{{activity.startTime}} ~ {{activity.endTime}}</view>
-            </view>
-            <view class="activity-info">
-                <image class='icon' src="{{locationIcon}}"></image>
-                <view>{{activity.location}}</view>
-            </view>
-        </view>
-        <view class="weui-article__p">
-            {{activity.description}}
-        </view>
-    </view>
-    <view>
-        <view class="weui-cell">
-            <view class="weui-cell__bd">活动发起人</view>
-            <view class="weui-cell__hd">
-                <image src="{{activity.userInfo && activity.userInfo.profile}}" class="activity-user"></image>
-            </view>
-            <view class="weui-cell__ft">{{activity.userInfo && activity.userInfo.username}}</view>
-        </view>
-    </view>
-    <view>
-        <view class="weui-cells__title">报名列表</view>
-        <view wx:for="{{activity.parts}}" wx:key="{{index}}" class="part-item">
-            <view class="flex">
-                <view class="part-profile">
-                    <image src="{{item.userInfo.profile}}" class="user-image"></image>
-                </view>
-                <view class="part-username">{{item.userInfo.username}}</view>
-            </view>
-            <view class="flex">
-                <view class="part-number">{{item.quantity}}</view>
-            </view>
-        </view>
-
-        <view class="weui-cells weui-cells_after-title total-section">
             <view class="weui-cell">
+                <view class="weui-cell__bd">活动发起人</view>
                 <view class="weui-cell__hd">
+                    <image src="{{activity.userInfo && activity.userInfo.profile}}" class="activity-user"></image>
                 </view>
-                <view class="weui-cell__bd">总计</view>
-                <view class="weui-cell__ft">{{activity.parts.length}}</view>
+                <view class="weui-cell__ft">{{activity.userInfo && activity.userInfo.username}}</view>
             </view>
         </view>
+        <view>
+            <view class="weui-cells__title">报名列表</view>
+            <view wx:for="{{activity.parts}}" wx:key="{{index}}" class="part-item">
+                <view class="flex">
+                    <view class="part-profile">
+                        <image src="{{item.userInfo.profile}}" class="user-image"></image>
+                    </view>
+                    <view class="part-username">{{item.userInfo.username}}</view>
+                </view>
+                <view class="flex">
+                    <view class="part-number">{{item.quantity}}</view>
+                </view>
+            </view>
+
+            <view class="weui-cells weui-cells_after-title total-section">
+                <view class="weui-cell">
+                    <view class="weui-cell__hd">
+                    </view>
+                    <view class="weui-cell__bd">总计</view>
+                    <view class="weui-cell__ft">{{activity.parts.length}}</view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{hasAuth && !inQueue}}" class="create-btn" bindtap="signUpActivity">我要报名</view>
+        <view wx:elif="{{hasAuth && inQueue}}" class="create-btn" bindtap="confirmCancelQueue">取消报名</view>
+        <button wx:else open-type="getUserInfo" class="create-btn" bindgetuserinfo="handleGetUserInfo">我要报名</button>
+        <button class="home-btn" bindtap="handleGoIndex"></button>
     </view>
-    <view wx:if="{{hasAuth && !inQueue}}" class="create-btn" bindtap="signUpActivity">我要报名</view>
-    <view wx:elif="{{hasAuth && inQueue}}" class="create-btn" bindtap="confirmCancelQueue">取消报名</view>
-    <button wx:else open-type="getUserInfo" class="create-btn" bindgetuserinfo="handleGetUserInfo">我要报名</button>
-    <button class="home-btn" bindtap="handleGoIndex"></button>
 </view>

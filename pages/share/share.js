@@ -8,6 +8,8 @@ const appInstance = getApp();
 let getUserNumber = 0;
 let signing = false;
 
+var showTimes = 0;
+
 Page({
   /**
    * 页面的初始数据
@@ -18,6 +20,7 @@ Page({
     inQueue: false,
     userHeader: false,
     queueList: [],
+    noActivity: false,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -63,7 +66,12 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function() {
+    if (showTimes > 0) {
+      that.getActivityDetail(this.data.activityId);
+    }
+    showTimes++;
+  },
 
   /**
    * 用户点击右上角分享
@@ -102,7 +110,12 @@ Page({
     const that = this;
     const token = wx.getStorageSync('token');
     request.getActivityDetail(token, id, function(err, res) {
-      if (err || res.code !== 0) return;
+      if (err || res.code !== 0 || !res.data) {
+        that.setData({
+          noActivity: true,
+        })
+        return;
+      };
       // set data
       res.data.startTime = formatTime.formatTime(res.data.startTime);
       res.data.endTime = formatTime.formatTime(res.data.endTime);

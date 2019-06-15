@@ -13,6 +13,7 @@ Page({
     activityList: [],
     queueList: [],
     currentTab: 0,
+    height: 500,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -32,7 +33,7 @@ Page({
         console.log(err);
         return;
       }
-      that.showQueueList();
+      that.getQueueList();
       that.getUserInfo(token);
     })
   },
@@ -44,18 +45,72 @@ Page({
 
   },
 
+  goToSharePage: function (e) {
+    // 分享按钮不跳转
+    if (e.target.dataset.id !== undefined) {
+      return;
+    }
+    
+    wx.navigateTo({
+      url: '/pages/share/share?id=' + e.currentTarget.dataset.id,
+    })
+  },
+
+  // 计算高度
+  execSwiperHeight: function () {
+    const that = this;
+    const query = wx.createSelectorQuery()
+    var selector = '';
+
+    if (this.data.currentTab === 0) {
+      selector = '#follow'
+    } else {
+      selector = '#create'
+    }
+
+    query.select(selector).boundingClientRect(function (res) {
+      if (!res) return
+      that.setData({
+        height: res.height
+      })
+    }).exec()
+  },
+
+  onScroll: function (e) {
+    var current = e.detail.current;
+    const that = this;
+    if (current === 0) {
+      this.getQueueList();
+    } else {
+      this.getActivityList();
+    }
+    wx.setStorage({
+      key: 'currentTab',
+      data: current
+    })
+    this.setData({
+      currentTab: current
+    }, function () {
+      that.execSwiperHeight()
+    });
+  },
+
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    console.log('show');
     wx.showShareMenu({
       withShareTicket: true
     })
+    var token = wx.getStorageSync('token')
     if (SHOE_TIMES > 1) {
-      this.showQueueList();
+      if (this.data.currentTab === 0) {
+        this.getQueueList(token)
+      } else {
+        this.getActivityList(token)
+      }
     }
-    SHOE_TIMES++;
+    SHOE_TIMES++
   },
 
   /**
@@ -85,11 +140,13 @@ Page({
   onReachBottom: function() {
 
   },
+  // 去创建活动
   gotoCreate: function() {
     wx.navigateTo({
       url: '/pages/create/create',
     })
   },
+  // 去活动详情
   gotoDetail: function(e) {
     // 分享按钮不跳转
     if (e.target.dataset.id !== undefined) {
@@ -108,8 +165,6 @@ Page({
     that.setData({
       currentTab: 0,
     });
-    var token = wx.getStorageSync("token");
-    that.getQueueList(token);
   },
   // 显示创建列表
   showActivityList: function(e) {
@@ -117,8 +172,6 @@ Page({
     that.setData({
       currentTab: 1,
     });
-    var token = wx.getStorageSync("token");
-    that.getActivityList(token);
   },
   // 分享
   onShareAppMessage: function(e) {
@@ -165,6 +218,8 @@ Page({
       })
       that.setData({
         activityList: res.data
+      }, () => {
+        that.execSwiperHeight()
       });
     })
   },
@@ -242,7 +297,9 @@ Page({
         item.startTime = formatTime.formatTime(item.startTime)
       })
       that.setData({
-        queueList: res.data
+        queueList: res.data.filter(item => !!item.activityInfo)
+      }, function () {
+        that.execSwiperHeight()
       });
     })
   }

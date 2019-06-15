@@ -2,7 +2,7 @@
 <view class="page">
   <view class="activity-card">
     <view class="weui-article__h2 activity-title">{{activity.title}}</view>
-    <view>
+    <view class="extra-info">
       <view class="activity-info">
         <image class='icon' src="{{timeIcon}}"></image>
         <view>{{activity.startTime}} ~ {{activity.endTime}}</view>
@@ -22,9 +22,9 @@
     <view wx:for="{{activity.parts}}" wx:key="{{index}}" class="part-item">
       <view class="flex">
         <view class="part-profile">
-          <image src="{{item.profile}}" class="user-image"></image>
+          <image src="{{item.userInfo.profile}}" class="user-image"></image>
         </view>
-        <view class="part-username">{{item.userName}}</view>
+        <view class="part-username">{{item.userInfo.username}}</view>
       </view>
       <view class="flex">
         <view class="part-number">{{item.quantity}}</view>

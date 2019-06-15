@@ -15,9 +15,12 @@
 .activity-info {
   font-size: 12px;
   display:flex;
-  justify-content:flex-start;
+  align-items: center;
   height:20px;
-  align-items:left;
+}
+
+.extra-info {
+  margin-bottom: 0.1em;
 }
 .icon {
   padding-right: 5px;

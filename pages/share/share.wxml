@@ -55,4 +55,5 @@
     <view wx:if="{{hasAuth && !inQueue}}" class="create-btn" bindtap="signUpActivity">我要报名</view>
     <view wx:elif="{{hasAuth && inQueue}}" class="create-btn" bindtap="confirmCancelQueue">取消报名</view>
     <button wx:else open-type="getUserInfo" class="create-btn" bindgetuserinfo="handleGetUserInfo">我要报名</button>
+    <button class="home-btn" bindtap="handleGoIndex"></button>
 </view>

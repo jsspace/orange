@@ -2,24 +2,35 @@
 .menu {
   display: flex;
   justify-content: center;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 1px 1px #eee;
 }
 .menu-btn {
-  height: 30px;
-  line-height: 30px;
-  width: 50%;
+  height: 40px;
+  line-height: 38px;
+  width: 40%;
   text-align: center;
-  padding: 5px;
-  background: #f09135;
-  color: #fff;
+  color: #000;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.menu-btn:first-child {
-  border-right: 1px solid #fff;
+
+.menu-item {
+  border-bottom: 2px solid transparent;
+  transition: all 0.5s ease-in-out;
 }
 .active {
-  font-size: 18px;
-  font-weight: bold;
+  border-bottom-color: #f09135;
 }
 .activity-list {
+  padding-top: 40px;
   padding-bottom: 70px;
 }
 .create-btn {
